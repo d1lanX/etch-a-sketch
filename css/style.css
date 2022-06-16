@@ -1,0 +1,16 @@
+.main-container{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    border: 1px solid red;
+
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+    width: 500px;
+    height: 500px;
+}
