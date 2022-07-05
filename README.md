@@ -1,4 +1,4 @@
-# Editor.md
+# etch-a-sketch
 
 ![](css/capture.png)
 
