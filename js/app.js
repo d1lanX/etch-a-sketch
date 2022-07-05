@@ -1,83 +1,135 @@
-let tamanoActual = 16;
+const main_container = document.createElement('div'); // Creacion del main-container
+main_container.classList.add('main-container');
+document.body.append(main_container);
+
+const container = document.createElement('div');
+container.classList.add('container');   // Creacion del container de la cuadricula
+main_container.append(container);
+
+const opciones = document.createElement('div');
+opciones.classList.add('opciones');    // Creacion del container de las opciones
+main_container.append(opciones);
+
+const titulo = document.createElement('h1');   // Creacion del titulo
+titulo.style.fontFamily = "monospace";
+titulo.style.textAlign = "center";
+titulo.textContent = "Trata de dibujar algo :)";
+opciones.append(titulo);
+
+const range = document.createElement('input');
+range.setAttribute('id', 'slider');
+range.setAttribute('type', 'range');   
+range.setAttribute('min', 2);
+range.setAttribute('max', 100);   // Creacion del range slider
+range.setAttribute('step', 1);
+range.setAttribute('value', 16);
+range.style.accentColor = "black";
+opciones.append(range);
+
+const valorRange = document.createElement('p');  // Creacion del parrafo con valor de la cuadricula
+valorRange.style.fontFamily = "monospace";
+valorRange.textContent = `${range.value} x ${range.value}`;
+opciones.append(valorRange);
+
+const btnBorrar = document.createElement('button');
+btnBorrar.style.fontFamily = "monospace";
+btnBorrar.textContent = "Borrar";    // Creacion del boton para borrar
+opciones.append(btnBorrar);
+
+const btnRainbow = document.createElement('button');  // Creacion del boton de colores
+btnRainbow.style.background = "linear-gradient(to right, orange , yellow, green, cyan, blue, violet)";
+btnRainbow.style.height = "50px";
+btnRainbow.style.borderRadius = "10px";
+opciones.append(btnRainbow);
+
+const btnBlack = document.createElement('button');
+btnBlack.style.backgroundColor = "black";    // Creacion del boton negro
+btnBlack.style.height = "50px";
+btnBlack.style.borderRadius = "10px";
+opciones.append(btnBlack);
+
+const btnWhite = document.createElement('button');
+btnWhite.style.backgroundColor = "white";   // Creacion del boton blanco
+btnWhite.style.height = "50px";
+btnWhite.style.boxShadow = "var(--sombra)";
+btnWhite.style.borderRadius = "10px";
+opciones.append(btnWhite);
+
+const btnDownload = document.createElement('button');
+btnDownload.style.fontFamily = "monospace"; 
+btnDownload.style.background = "linear-gradient(white, beige)";
+btnDownload.style.boxShadow = "var(--sombra)";
+btnDownload.style.height = "50px";       // Creacion del boton de descargar
+btnDownload.style.borderRadius = "10px";
+btnDownload.textContent = "Descargar";
+opciones.append(btnDownload);
+
+// -=--=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- \\
+
+let numeroCuadricula = 16;
 let colorActual = "black";
+let contador = 0;
 
-const contenedor = document.querySelector('.container');
-const slider = document.querySelector(".slider");
-const valorSlider = document.getElementById("texto");
-const btnArcoiris = document.getElementById("arcoiris");
-const btnNegro = document.getElementById("negro");
+range.oninput = (e) => actualizarTexto(e);
+range.onchange = (e) => cambiarNumero(e.target.value);
+btnBorrar.onclick = () => borrarCuadricula();
+btnRainbow.onclick = () => nuevoColor("rainbow");
+btnBlack.onclick = () => nuevoColor("black");
+btnWhite.onclick = () => nuevoColor("white");
 
-const btnLimpiar = document.getElementById("clear");
-
-btnNegro.addEventListener('click', function(){
-    colorActual = "black";
-    cambiarColor
-})
-
-btnArcoiris.addEventListener('click', function(){
-    colorActual = "red";
-    cambiarColor
-})
-btnLimpiar.onclick = () => recargarGrilla();
-
-// El contexto es el que proporciona 'e'
-slider.addEventListener('mousemove', function(e){   
-    updateSizeValue(e.target.value);
-})
-
-slider.addEventListener('change', function(e){
-    cambiarTamano(e.target.value);
-})
-
-// La caja de texto se actualiza
-function updateSizeValue(value){
-    valorSlider.textContent = `${value} x ${value}`;
+function nuevoColor(color) {
+    colorActual = color;
 }
 
-function cambiarTamano(value){
-    colocarNuevoTamano(value);
-    updateSizeValue(value);
-    recargarGrilla();
+function cambiarNumero(num){
+    numeroCuadricula = num;
+    borrarCuadricula();
 }
 
-function colocarNuevoTamano(tamanoNuevo){
-    tamanoActual = tamanoNuevo;     
+function borrarCuadricula(){
+    container.innerHTML = '';
+    crearCuadricula(numeroCuadricula);
 }
 
-function recargarGrilla(){
-    limpiarGrilla();
-    crearGrilla(tamanoActual);
+function actualizarTexto(e){
+    valorRange.textContent = `${e.target.value} x ${e.target.value}`;
 }
 
-function limpiarGrilla(){
-    contenedor.innerHTML = '';
-}
-
-
-
-function crearGrilla(numero){
+function crearCuadricula(num){
+    const cuadrosTotales = num * num; // El total de cuadros que va a tener toda la cuadricula
     
-    contenedor.style.gridTemplateColumns = `repeat(${numero}, 1fr)`;
-    contenedor.style.gridTemplateColumns = `repeat(${numero}, 1fr)`;
+    container.style.gridTemplateColumns = `repeat(${num}, 1fr)`;
+    container.style.gridTemplateRows = `repeat(${num}, 1fr)`;
     
-    for(let i = 0; i < numero * numero; i++){
-        const cuadrito = document.createElement("div");
-        cuadrito.classList.add("cuadro");
-        cuadrito.addEventListener('mouseover', cambiarColor);
-        contenedor.appendChild(cuadrito);
+    for(let i = 0; i < cuadrosTotales; i++){
+        const cuadro = document.createElement('div'); // Se crea(n) los cuadritos
+        cuadro.style.border = "1px solid gray";
+        cuadro.addEventListener('mouseover', cambiarColor); // Cuando el mouse este encima, -> cambiarColor
+        container.append(cuadro);
     }
-};
+}
 
-function cambiarColor(event){
-    console.log(colorActual);
+function cambiarColor(e){
+
+    if(contador < 6){
+        contador++;
+    } else{
+        contador = 0;
+    }
+
     if(colorActual == "black"){
-        event.target.style.backgroundColor = "black";
+        e.target.style.backgroundColor = "black";
     } 
-    if(colorActual == "red"){
-        event.target.style.backgroundColor = "red";
+    else if(colorActual == "rainbow"){
+
+        let colores = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+        e.target.style.backgroundColor = `${colores[contador]}`;
+        
     }
+    else if(colorActual == "white"){
+        e.target.style.backgroundColor = "white";
+    }
+    
 }
 
-window.onload = () => {
-    crearGrilla(16);
-}
+crearCuadricula(numeroCuadricula);

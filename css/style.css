@@ -1,148 +1,28 @@
-body{
-    background-image: linear-gradient(to bottom right, rgb(205, 205, 211), rgb(255, 255, 255));
+:root{
+    --sombra: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 .main-container{
     display: flex;
-    flex: 1;
-    width: auto;
-    height: 640px;
-}
-
-.container-izquierda{
-    display: flex;
+    width:  100%;
+    height: 95vh;
     align-items: center;
-    justify-content: flex-end;
-    width: 50%;
-    height: auto;
+    gap: 50px;
 }
 
-.container-derecha{
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    width: 30%;
-    margin-left: 30px;
-    /* border: 1px solid green; */
-}
-
-/* Contenedor donde van a estar todos los cuadros */
 .container{
     display: grid;
     width:  500px;
     height: 500px;
-    border: 1px solid black;
-    background-color: azure;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-left: 100px;
+    box-shadow: var(--sombra);
 }
 
-/* Cada cuadro que va a haber en la cuadrilla */
-.cuadro {
-    height: 100%;
-    width: 100%;
-}
-
-.titulo{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 80px;
-    width: 100%;
-    height: 100px;
-    /* border: 1px solid blue; */
-}
-
-h1, p#texto, button#arcoiris, button#clear, button#negro{
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-}
-
-.colores{
+.opciones{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
-}
-
-.slidecontainer{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    width: 100%;
-    height: 70px;
-}
-
-.slider{
-    accent-color: #cccccc;
-    width: 200px;
-}
-
-.botones{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 135px;
-}
-
-button#arcoiris, button#clear, button#negro{
-    width: 100px;
-    height: 40px;
-    background: linear-gradient(
-        90deg,
-        rgba(255, 0, 0, 1) 0%,
-        rgba(255, 154, 0, 1) 10%,
-        rgba(208, 222, 33, 1) 20%,
-        rgba(79, 220, 74, 1) 30%,
-        rgba(63, 218, 216, 1) 40%,
-        rgba(47, 201, 226, 1) 50%,
-        rgba(28, 127, 238, 1) 60%,
-        rgba(95, 21, 242, 1) 70%,
-        rgba(186, 12, 248, 1) 80%,
-        rgba(251, 7, 217, 1) 90%,
-        rgba(255, 0, 0, 1) 100%
-    );
-    border: none;
-    border-radius: 10px;
-    color: white;
-    font-weight: bold;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    cursor: pointer;
-    transition: 0.5s;
-}
-
-button#clear{
-    background: white;
-    color: black;
-
-}
-
-button#clear:hover, 
-button#negro:hover, 
-button#arcoiris:hover {
-    -webkit-transform: translateY(-1px);
-	transform: translateY(-5px);
-}
-
-button#negro{
-    background: black;
-    color: white;
-}
-
-#colorpicker{
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: transparent;
-    border: none;
-    width: 100px;
-    height: 100px;
-    cursor: pointer;
-}
-
-#colorpicker::-webkit-color-swatch{
-    border-radius: 50%;
+    width: 30%;
+    height: 80%;
+    gap: 20px;
 }
 
